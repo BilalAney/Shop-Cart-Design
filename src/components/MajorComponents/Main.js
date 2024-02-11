@@ -1,18 +1,14 @@
 /** @format */
-
+// @BilalAney THIS COMPONENT IS DEPRECATED, SO DON'T USE IT AT ALL
 import { useState } from "react";
-import "./App.css";
-import Courses from "./Courses";
-import CartMenu from "./components/MajorComponents/CartMenu";
-import ShopMenu from "./components/MajorComponents/ShopMenu";
-import Header from "./components/MajorComponents/Header";
-import Btn from "./components/MinorComponents/Btn";
-import Footer from "./components/MajorComponents/Footer";
-import Main from "./components/MajorComponents/Main";
 
-function App() {
+import CartMenu from "./CartMenu";
+import ShopMenu from "./ShopMenu";
+
+import Btn from "../MinorComponents/Btn";
+
+function Main({ handleSelect, Courses }) {
   const [cart, setCart] = useState([]);
-  const [current, setCurrent] = useState(null);
 
   function handleAddCourse(course) {
     //If the course is already exist, then simply increment the quantity.
@@ -43,35 +39,26 @@ function App() {
     } //if there is onyl one quantity, => delete the item
     else setCart((pre) => pre.filter((ele) => ele.id !== id));
   }
-
-  function handleSelect(course) {
-    setCurrent((pre) => (pre?.id === course.id ? null : course));
-  }
-
   return (
-    <div className="App">
-      <Header />
-      <main className="MainSe">
-        <ShopMenu
-          courses={Courses}
-          handleSelect={handleSelect}
-          handleAddCourse={handleAddCourse}
+    <main className="MainSe">
+      <ShopMenu
+        courses={Courses}
+        handleSelect={handleSelect}
+        handleAddCourse={handleAddCourse}
+      >
+        <Btn
+          bgColor="var(--default-dark-color)"
+          color="#fff"
+          fontSize="var(--size-one)"
+          width="100%"
         >
-          <Btn
-            bgColor="var(--default-dark-color)"
-            color="#fff"
-            fontSize="var(--size-one)"
-            width="100%"
-          >
-            REFRESH
-          </Btn>
-        </ShopMenu>
+          REFRESH
+        </Btn>
+      </ShopMenu>
 
-        <CartMenu courses={cart} handleDeleteCourse={handleDeleteCourse} />
-      </main>
-      <Footer />
-    </div>
+      <CartMenu courses={cart} handleDeleteCourse={handleDeleteCourse} />
+    </main>
   );
 }
 
-export default App;
+export default Main;
