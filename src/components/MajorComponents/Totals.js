@@ -4,7 +4,9 @@ import { memo } from "react";
 
 function Totals({ courses, discount }) {
   const totalItems = courses.length;
-  const totalPrice = courses.reduce((acc, crr) => (acc += crr.price), 0);
+  const totalPrice = courses
+    .reduce((acc, crr) => (acc += crr.price * crr.quantity), 0)
+    .toFixed(2);
   const userWillPay = Number(totalPrice) * Number(discount);
   const styles = {
     display: "flex",
@@ -22,7 +24,7 @@ function Totals({ courses, discount }) {
         }}
       >
         <p style={{ display: "inline-block" }}>Total Items: {totalItems}</p>
-        <p style={{ display: "inline-block" }}>Total Price: {totalPrice}</p>
+        <p style={{ display: "inline-block" }}>Total Price: {totalPrice}$</p>
       </div>
       <p>Discount: {(discount ? +discount : 0) * 100}%</p>
       <p>You Will Pay: {userWillPay}</p>

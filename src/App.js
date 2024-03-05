@@ -9,10 +9,19 @@ import Header from "./components/MajorComponents/Header";
 import Btn from "./components/MinorComponents/Btn";
 import Footer from "./components/MajorComponents/Footer";
 import Main from "./components/MajorComponents/Main";
+import { clear } from "@testing-library/user-event/dist/clear";
 
 function App() {
   const [cart, setCart] = useState([]);
   const [current, setCurrent] = useState(null);
+
+  const btnProps = {
+    bgColor: "var(--default-dark-color)",
+    color: "#fff",
+    padding: "8px",
+    margin: "5px",
+    fontSize: "var(--size-one)",
+  };
 
   function handleAddCourse(course) {
     //If the course is already exist, then simply increment the quantity.
@@ -44,6 +53,10 @@ function App() {
     else setCart((pre) => pre.filter((ele) => ele.id !== id));
   }
 
+  function clearCart() {
+    setCart([]);
+  }
+
   function handleSelect(course) {
     setCurrent((pre) => (pre?.id === course.id ? null : course));
   }
@@ -67,7 +80,13 @@ function App() {
           </Btn>
         </ShopMenu>
 
-        <CartMenu courses={cart} handleDeleteCourse={handleDeleteCourse} />
+        <CartMenu courses={cart} handleDeleteCourse={handleDeleteCourse}>
+          <Btn {...btnProps} handleClick={clearCart}>
+            REMOVE ALL
+          </Btn>
+          <Btn {...btnProps}>CONTINUE!</Btn>
+          <Btn {...btnProps}>SAVE IT FOR NOW</Btn>
+        </CartMenu>
       </main>
       <Footer />
     </div>

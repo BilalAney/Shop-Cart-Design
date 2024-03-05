@@ -2,5 +2,7 @@
   "material-icon-theme.activeIconPack": "nest",
   "material-icon-theme.opacity": 1,
   "material-icon-theme.saturation": 1,
-  "audioCues.clear": "auto"
+  "accessibility.signals.clear": {
+    "sound": "auto"
+  }
 }
